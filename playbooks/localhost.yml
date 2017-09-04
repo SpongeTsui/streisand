@@ -8,6 +8,11 @@
 # Try and detect localhost's provider & apply required workarounds
 - include: provider-detect.yml
 
+vars_prompt:
+ - name: "streisand_ipv4_address"
+   prompt: '\nWanually set external IP? Press enter to attempt to automatically set.\n'
+   default: "{{ streisand_ipv4_address }}"
+
 - name: Prepare the localhost for Streisand
 # =========================================
   hosts: streisand-host
