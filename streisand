@@ -72,7 +72,7 @@ function be_careful_friend() {
 # file from the inventories directory as the Ansible inventory.
 function local_provision() {
   read -r -p "Manually enter the external IP. Otherwise, Press enter to attempt to set it automatically " SERVER_IP
-  if [-z "$SERVER_IP" ]; then
+  if [ -z ${SERVER_IP+x} ]; then
     be_careful_friend "
     LOCAL PROVISIONING WILL OVERWRITE CONFIGURATION ON **THIS** MACHINE.
     THE MACHINE YOU ARE CURRENTLY EXECUTING THIS SHELL SCRIPT ON.
@@ -89,7 +89,7 @@ function local_provision() {
 
       Please enter the word 'streisand' to continue: "
 
-        echo; echo; ansible-playbook -i inventories/inventory-local-provision --extra-vars"@global_vars/vars.yml streisand_ipv4_address=`$SERVER_IP`" playbooks/localhost.yml
+        echo; echo; ansible-playbook -i inventories/inventory-local-provision --extra-vars=@global_vars/vars.yml streisand_ipv4_address=$SERVER_IP playbooks/localhost.yml
   fi
 }
 
