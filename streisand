@@ -80,7 +80,7 @@ function local_provision() {
 
     Please enter the word 'streisand' to continue: "
 
-      echo; echo; ansible-playbook -i inventories/inventory-local-provision --extra-vars=@global_vars/vars.yml playbooks/localhost.yml
+      echo; echo; ansible-playbook -i inventories/inventory-local-provision --extra-vars="@global_vars/vars.yml streisand_ipv4_address=$SERVER_IP" playbooks/localhost.yml
   else
     be_careful_friend "
       LOCAL PROVISIONING WILL OVERWRITE CONFIGURATION ON **THIS** MACHINE.
@@ -89,7 +89,7 @@ function local_provision() {
 
       Please enter the word 'streisand' to continue: "
 
-        echo; echo; ansible-playbook -i inventories/inventory-local-provision --extra-vars=@global_vars/vars.yml streisand_ipv4_address=$SERVER_IP playbooks/localhost.yml
+      echo; echo; ansible-playbook -i inventories/inventory-local-provision --extra-vars=@global_vars/vars.yml playbooks/localhost.yml
   fi
 }
 
