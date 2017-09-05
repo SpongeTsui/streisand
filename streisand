@@ -74,6 +74,7 @@ function local_provision() {
   read -r -p "Manually enter the external IP. Otherwise, Press enter to attempt to set it automatically " SERVER_IP
   if [ -z ${SERVER_IP+x} ]; then
     be_careful_friend "
+    manual
     LOCAL PROVISIONING WILL OVERWRITE CONFIGURATION ON **THIS** MACHINE.
     THE MACHINE YOU ARE CURRENTLY EXECUTING THIS SHELL SCRIPT ON.
     ARE YOU 100% SURE THAT YOU WISH TO CONTINUE?
@@ -83,6 +84,7 @@ function local_provision() {
       echo; echo; ansible-playbook -i inventories/inventory-local-provision --extra-vars="@global_vars/vars.yml streisand_ipv4_address=$SERVER_IP" playbooks/localhost.yml
   else
     be_careful_friend "
+      auto
       LOCAL PROVISIONING WILL OVERWRITE CONFIGURATION ON **THIS** MACHINE.
       THE MACHINE YOU ARE CURRENTLY EXECUTING THIS SHELL SCRIPT ON.
       ARE YOU 100% SURE THAT YOU WISH TO CONTINUE?
