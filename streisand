@@ -48,9 +48,9 @@ Please create this keypair by running 'ssh-keygen'"
 function check_ip() {
   read -r -p "$1" SERVER_IP
   if [[ $SERVER_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-    echo "IP provided is valid. . . continuing";
+    echo "IP provided is valid, continuing . . . ";
 else
-    echo "Invalid IP: $SERVER_IP";
+    echo "Invalid IP, attempting to set automatically . . . ";
     return 1;
  fi
 }
