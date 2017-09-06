@@ -92,7 +92,7 @@ function local_provision() {
 
     be_careful_friend "$FRIENDLY_MESSAGE"
 
-      echo; echo; ansible-playbook -i inventories/inventory-local-provision -extra-vars "@global_vars/vars.yml" --extra-vars "streisand_ipv4_address=$SERVER_IP" playbooks/localhost.yml
+      echo; echo; ansible-playbook -i inventories/inventory-local-provision -extra-vars=@global_vars/vars.yml --extra-vars "streisand_ipv4_address=$SERVER_IP" playbooks/localhost.yml
 
   else
     be_careful_friend "$FRIENDLY_MESSAGE"
