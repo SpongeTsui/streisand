@@ -81,23 +81,21 @@ function be_careful_friend() {
 # invoking ansible-playbook. It uses the `inventory-local-provision` inventory
 # file from the inventories directory as the Ansible inventory.
 function local_provision() {
-  if check_ip  "Manually enter the external IP. Otherwise, Press enter to attempt to set it automatically"; then
-    be_careful_friend "
-      LOCAL PROVISIONING WILL OVERWRITE CONFIGURATION ON **THIS** MACHINE.
-      THE MACHINE YOU ARE CURRENTLY EXECUTING THIS SHELL SCRIPT ON.
-      ARE YOU 100% SURE THAT YOU WISH TO CONTINUE?
+  local FRIENDLY_MESSAGE="
+    LOCAL PROVISIONING WILL OVERWRITE CONFIGURATION ON **THIS** MACHINE.
+    THE MACHINE YOU ARE CURRENTLY EXECUTING THIS SHELL SCRIPT ON.
+    ARE YOU 100% SURE THAT YOU WISH TO CONTINUE?
 
-      Please enter the word 'streisand' to continue: "
+    Please enter the word 'streisand' to continue: "
+
+  if check_ip "Manually enter the external IP of the server. Otherwise, Press enter to attempt to set it automatically"; then
+
+    be_careful_friend "$FRIENDLY_MESSAGE"
 
       echo; echo; ansible-playbook -i inventories/inventory-local-provision -extra-vars "@global_vars/vars.yml" --extra-vars "streisand_ipv4_address=$SERVER_IP" playbooks/localhost.yml
 
   else
-    be_careful_friend "
-      LOCAL PROVISIONING WILL OVERWRITE CONFIGURATION ON **THIS** MACHINE.
-      THE MACHINE YOU ARE CURRENTLY EXECUTING THIS SHELL SCRIPT ON.
-      ARE YOU 100% SURE THAT YOU WISH TO CONTINUE?
-
-      Please enter the word 'streisand' to continue: "
+    be_careful_friend "$FRIENDLY_MESSAGE"
 
       echo; echo; ansible-playbook -i inventories/inventory-local-provision --extra-vars=@global_vars/vars.yml playbooks/localhost.yml
   fi
